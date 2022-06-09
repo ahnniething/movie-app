@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import AppLoading from 'expo-app-loading';
-import { Text } from 'react-native'
+import { Text, Image } from 'react-native'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons';
-
+import { Asset } from 'expo-asset';
   /*
     만약 앱이 실행될 준비가 되어있지 않으면 AppLoading을 보여줌
     AppLoading은 splash screen을 띄우고 startAsync 함수를 호출함
@@ -18,10 +18,15 @@ export default function App() {
     //10초 뒤에 앱 실행
     // await new Promise(resolve => setTimeout(resolve, 10000));
 
+    //Font
     //preload font
     await Font.loadAsync(Ionicons.font);
 
-
+    //Image
+    //preload image on my local file system (better way)
+    await Asset.loadAsync(require('./cdd.png'));
+     //preload image on server (not recommended)
+     await Image.prefetch('https://d33wubrfki0l68.cloudfront.net/b152eb4214943f96e83c4babde026b12221e68f1/a20c2/img/oss_logo.png');
 
   };
   if(!ready){
