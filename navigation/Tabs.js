@@ -28,8 +28,7 @@ const Tabs = () => {
         component={Movies}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            console.log(focused, color, size);
-            return <Ionicons name="film" color={color} size={size}></Ionicons>
+            return <Ionicons name={focused ? "film" : "film-outline"} color={color} size={size}></Ionicons>
           }
         }}
       />
@@ -38,8 +37,7 @@ const Tabs = () => {
         component={Tv}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            console.log(focused, color, size);
-            return <Ionicons name="tv" color={color} size={size}></Ionicons>
+            return <Ionicons name={focused ? "tv" : "tv-outline"} color={color} size={size}></Ionicons>
           }
         }}
       />
@@ -48,8 +46,7 @@ const Tabs = () => {
         component={Search}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            console.log(focused, color, size);
-            return <Ionicons name="search" color={color} size={size}></Ionicons>
+            return <Ionicons name={focused ? "search" : "search-outline"} color={color} size={size}></Ionicons>
           }
         }}
       />
