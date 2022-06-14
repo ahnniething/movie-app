@@ -14,14 +14,14 @@ const Tabs = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
-        tabBarActiveTintColor: isDark ? YELLOW_COLOR : CHARCOAL_COLOR ,
-        tabBarInactiveTintColor: isDark ? DEEP_YELLOW_COLOR : GRAY_COLOR,
-        headerStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
-        headerTitleStyle: { color : isDark ? YELLOW_COLOR : CHARCOAL_COLOR },
+      // screenOptions={{
+      //   tabBarStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
+      //   tabBarActiveTintColor: isDark ? YELLOW_COLOR : CHARCOAL_COLOR ,
+      //   tabBarInactiveTintColor: isDark ? DEEP_YELLOW_COLOR : GRAY_COLOR,
+      //   headerStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
+      //   headerTitleStyle: { color : isDark ? YELLOW_COLOR : CHARCOAL_COLOR },
 
-      }}
+      // }}
     >
       <Tab.Screen
         name="Movies"

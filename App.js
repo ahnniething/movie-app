@@ -5,20 +5,34 @@ import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons';
 import { Asset, useAssets } from 'expo-asset';
 import { useFonts } from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
-/**
- *  이미지와 폰트가 불러와지지 않았다면 <AppLoading>을 리턴함
- */
-export default function App() {
-  const [assets] = useAssets([require("./cdd.png")]);
-  const [loaded] = Font.useFonts(Ionicons.font);
+import { useColorScheme } from "react-native";
 
-  if(!assets||!loaded){
-    return <AppLoading/>;
-  }
-  return <NavigationContainer>
+
+export default function App() {
+  const isDark = useColorScheme() === "dark";
+  const [ready, setReady] = useState(false);
+  const onFinish = () => setReady(true);
+  const startLoading = async () => {
+    const fonts = loadFonts([Ionicons.font]);
+    const images = loadImages([
+      require('./cdd.png'),
+      'https://d33wubrfki0l68.cloudfront.net/b152eb4214943f96e83c4babde026b12221e68f1/a20c2/img/oss_logo.png',
+    ]);
+    await Promise.all([...fonts, ...images]);
+  };
+
+  return ready ? (
+    <NavigationContainer theme={isDark? DarkTheme : DefaultTheme }>
     <Tabs/>
   </NavigationContainer>
+  ) : (
+    <AppLoading
+      startAsync={startLoading}
+      onFinish={onFinish}
+      onError={console.error}
+    />
+  );
 }
 
