@@ -11,7 +11,6 @@ import { useColorScheme } from "react-native";
 
 
 export default function App() {
-  const isDark = useColorScheme() === "dark";
   const [ready, setReady] = useState(false);
   const onFinish = () => setReady(true);
   const startLoading = async () => {
@@ -24,7 +23,7 @@ export default function App() {
   };
 
   return ready ? (
-    <NavigationContainer theme={isDark? DarkTheme : DefaultTheme }>
+    <NavigationContainer>
     <Tabs/>
   </NavigationContainer>
   ) : (
