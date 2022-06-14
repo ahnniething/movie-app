@@ -14,7 +14,6 @@ const Tabs = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Tv"
       screenOptions={{
         tabBarStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
         tabBarActiveTintColor: isDark ? YELLOW_COLOR : CHARCOAL_COLOR ,
@@ -34,9 +33,6 @@ const Tabs = () => {
         name="Tv"
         component={Tv}
         options={{
-          tabBarStyle: { backgroundColor: "lavender" },
-          headerStyle: { backgroundColor: "lavender" },
-          headerTitleStyle: { color: "tomato" },
           headerRight: () => (
             <View>
               <Text>more</Text>
