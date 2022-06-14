@@ -21,6 +21,7 @@ const Tabs = () => {
         tabBarInactiveTintColor: isDark ? DEEP_YELLOW_COLOR : GRAY_COLOR,
         headerStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
         headerTitleStyle: { color : isDark ? YELLOW_COLOR : CHARCOAL_COLOR },
+        tabBarLabelStyle: { marginTop: -10, fontSize: 12, fontWeight: '600'}
       }}
     >
       <Tab.Screen
@@ -28,16 +29,16 @@ const Tabs = () => {
         component={Movies}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            return <Ionicons name={focused ? "film" : "film-outline"} color={color} size={size}></Ionicons>
+            return <Ionicons name={"film-outline"} color={color} size={size}></Ionicons>
           }
         }}
       />
       <Tab.Screen
-        name="Tv"
+        name="TV"
         component={Tv}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            return <Ionicons name={focused ? "tv" : "tv-outline"} color={color} size={size}></Ionicons>
+            return <Ionicons name={"tv-outline"} color={color} size={size}></Ionicons>
           }
         }}
       />
