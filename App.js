@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
 import { useColorScheme } from "react-native";
+import Stack from './navigation/Stack';
 
 
 export default function App() {
@@ -24,7 +25,8 @@ export default function App() {
 
   return ready ? (
     <NavigationContainer>
-    <Tabs/>
+    {/* <Tabs/> */}
+    <Stack />
   </NavigationContainer>
   ) : (
     <AppLoading
