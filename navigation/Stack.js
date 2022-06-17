@@ -1,21 +1,29 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 
-const ScreenOne = () => (
+const ScreenOne = ({ navigation: { navigate } }) => (
+  // <NativeStack.Screen name="Two" component={ScreenTwo} />의 "Two" = navigate("Two")}
+  // screen name을 파라미터로 보냄
+  <TouchableOpacity onPress={() => navigate("Two")} >
   <View>
-    <Text>One</Text>
+    <Text>go to two</Text>
   </View>
+  </TouchableOpacity>
 );
-const ScreenTwo = () => (
+const ScreenTwo = ({ navigation: { navigate } }) => (
+  <TouchableOpacity onPress={() => navigate("Three")} >
   <View>
-    <Text>Two</Text>
+    <Text>go to three</Text>
   </View>
+  </TouchableOpacity>
 );
-const ScreenThree = () => (
+const ScreenThree = ({ navigation: { goBack } }) => (
+  <TouchableOpacity onPress={() => goBack()} >
   <View>
-    <Text>Three</Text>
+    <Text>go back</Text>
   </View>
+  </TouchableOpacity>
 );
 
 const NativeStack = createNativeStackNavigator();
