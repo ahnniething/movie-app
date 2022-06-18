@@ -27,9 +27,8 @@ const Tabs = () => {
     >
       <Tab.Screen
         name="Movies"
-        component={Stack}
+        component={Movies}
         options={{
-          headerShown:false,
           tabBarIcon: ({ focused, color, size }) => {
             return <Ionicons name={"film-outline"} color={color} size={size}></Ionicons>
           }

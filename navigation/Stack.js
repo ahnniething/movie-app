@@ -4,8 +4,8 @@ import { Text, View, TouchableOpacity } from "react-native";
 import { YELLOW_COLOR } from "../colors";
 
 const ScreenOne = ({ navigation: { navigate } }) => (
-  // <NativeStack.Screen name="Two" component={ScreenTwo} />μ "Two" = navigate("Two")}
-  // screen nameμ„ νλΌλ―Έν„°λ΅ λ³΄λƒ„
+  // <NativeStack.Screen name="Two" component={ScreenTwo} />? "Two" = navigate("Two")}
+  // screen name?„ ??Όλ―Έν„°λ΅? λ³΄λƒ„
   <TouchableOpacity onPress={() => navigate("Two")}>
     <View>
       <Text>go to two</Text>
@@ -19,10 +19,10 @@ const ScreenTwo = ({ navigation: { navigate } }) => (
     </View>
   </TouchableOpacity>
 );
-const ScreenThree = ({ navigation: { setOptions } }) => (
-  <TouchableOpacity onPress={() => setOptions({ title: "Hello" })}>
+const ScreenThree = ({ navigation: { navigate } }) => (
+  <TouchableOpacity onPress={() => navigate("Tabs", { screen: "Search" })}>
     <View>
-      <Text>Change title</Text>
+      <Text>go to Search in Tab Navigator</Text>
     </View>
   </TouchableOpacity>
 );
