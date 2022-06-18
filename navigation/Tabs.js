@@ -7,6 +7,7 @@ import { View, Text } from "react-native";
 import { useColorScheme } from "react-native";
 import { YELLOW_COLOR, IVORY_COLOR, CHARCOAL_COLOR, GRAY_COLOR, DEEP_YELLOW_COLOR } from '../colors'
 import { Ionicons } from '@expo/vector-icons';
+import Stack from "./Stack";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,13 +22,14 @@ const Tabs = () => {
         tabBarInactiveTintColor: isDark ? DEEP_YELLOW_COLOR : GRAY_COLOR,
         headerStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
         headerTitleStyle: { color : isDark ? YELLOW_COLOR : CHARCOAL_COLOR },
-        tabBarLabelStyle: { marginTop: -10, fontSize: 12, fontWeight: '600'}
+        tabBarLabelStyle: { marginTop: -10, fontSize: 12, fontWeight: '600'},
       }}
     >
       <Tab.Screen
         name="Movies"
-        component={Movies}
+        component={Stack}
         options={{
+          headerShown:false,
           tabBarIcon: ({ focused, color, size }) => {
             return <Ionicons name={"film-outline"} color={color} size={size}></Ionicons>
           }

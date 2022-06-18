@@ -25,8 +25,8 @@ export default function App() {
 
   return ready ? (
     <NavigationContainer>
-    {/* <Tabs/> */}
-    <Stack />
+    <Tabs/>
+    {/* <Stack /> */}
   </NavigationContainer>
   ) : (
     <AppLoading
