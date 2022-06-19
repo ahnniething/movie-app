@@ -1,12 +1,25 @@
 import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
 const Movies = ({ navigation: { navigate } }) => (
   <TouchableOpacity
     onPress={() => navigate("Stack", { screen: "Three" })}
-    style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    style={styles.btn}
   >
-    <Text>go to Three in Stack Naigator</Text>
+    <Text style={styles.text}>go to Three in Stack Naigator</Text>
   </TouchableOpacity>
 );
+
+const styles = StyleSheet.create({
+     btn : {
+          flex: 1, 
+          justifyContent: "center", 
+          alignItems: "center" 
+     },
+     text: {  
+          color:"blue"
+     }
+})
 export default Movies;
+
+
