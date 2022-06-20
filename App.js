@@ -13,6 +13,11 @@ import Root from './navigation/Root';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './styled';
 
+const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
+const loadImages = (images) =>
+  images.map((images) =>
+    typeof image === 'string' ? Image.prefetch(image) : Asset.loadAsync(image)
+  );
 
 export default function App() {
   const [ready, setReady] = useState(false);
