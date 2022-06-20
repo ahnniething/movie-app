@@ -15,7 +15,7 @@ import { darkTheme, lightTheme } from './styled';
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 const loadImages = (images) =>
-  images.map((images) =>
+  images.map((image) =>
     typeof image === 'string' ? Image.prefetch(image) : Asset.loadAsync(image)
   );
 
