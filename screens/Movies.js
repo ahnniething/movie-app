@@ -13,10 +13,21 @@ const Title = styled.Text`
   color: blue;
 `;
 
+const Header = styled.View``;
+
+const Column = styled.View``;
+
+const Footer = styled.View``;
+
 const Movies = ({ navigation: { navigate } }) => (
-  <Btn onPress={() => navigate("Stack", { screen: "Three" })}>
-    <Title>go to Three in Stack Naigator</Title>
-  </Btn>
+  <Header>
+    <Column>
+      <Btn onPress={() => navigate("Stack", { screen: "Three" })}>
+        <Title>go to Three in Stack Naigator</Title>
+      </Btn>
+    </Column>
+    <Footer></Footer>
+  </Header>
 );
 
 export default Movies;
