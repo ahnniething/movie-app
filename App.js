@@ -10,6 +10,8 @@ import Tabs from './navigation/Tabs';
 import { useColorScheme } from "react-native";
 import Stack from './navigation/Stack';
 import Root from './navigation/Root';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from './styled';
 
 
 export default function App() {
@@ -24,12 +26,14 @@ export default function App() {
     await Promise.all([...fonts, ...images]);
   };
 
+  const isDark = useColorScheme() === "dark";
+
   return ready ? (
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
     <NavigationContainer>
-    {/* <Tabs/> */}
-    {/* <Stack /> */}
     <Root/>
   </NavigationContainer>
+  </ThemeProvider>
   ) : (
     <AppLoading
       startAsync={startLoading}
