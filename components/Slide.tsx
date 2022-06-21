@@ -21,6 +21,7 @@ const Title = styled.Text<{ isDark: boolean }>`
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
 `;
+
 const Wrapper = styled.View`
   flex-direction: row;
   height: 100%;
@@ -30,6 +31,7 @@ const Wrapper = styled.View`
   justify-content: space-around;
   align-items: center;
 `;
+
 const Column = styled.View`
   width: 60%;
 `;
