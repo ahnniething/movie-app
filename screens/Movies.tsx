@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
+  RefreshControl,
   ScrollView,
   useColorScheme,
 } from "react-native";
@@ -81,6 +82,7 @@ const CommingSoonTitle = styled(ListTitle)`
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
+  const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
@@ -122,12 +124,21 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     getData();
   }, []);
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getData();
+    setRefreshing(false);
+  };
   return loading ? (
     <Loader>
       <ActivityIndicator />
     </Loader>
   ) : (
-    <Container>
+    <Container
+      refreshControl={
+        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+      }
+    >
       <Swiper
         horizontal
         loop
