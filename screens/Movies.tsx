@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
 import styled from "styled-components/native";
-import { ActivityIndicator, Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import { makeImgPath } from "../utils";
 import { BlurView } from "expo-blur";
 
@@ -21,11 +21,7 @@ const Loader = styled.View`
   align-items: center;
 `;
 
-const BgImg = styled.Image`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-`;
+const BgImg = styled.Image``;
 
 const Title = styled.Text``;
 
@@ -63,11 +59,11 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       >
         {nowPlayingMovies.map((movie) => (
           <View key={movie.id}>
-            <BgImg source={{ uri: makeImgPath(movie.backdrop_path) }} />
-            <BlurView
-              intensity={3}
-              style={{ width: "100%", height: "100%", position: "absolute" }}
-            >
+            <BgImg
+              source={{ uri: makeImgPath(movie.backdrop_path) }}
+              style={StyleSheet.absoluteFill}
+            />
+            <BlurView intensity={5} style={StyleSheet.absoluteFill}>
               <Title>{movie.original_title}</Title>
             </BlurView>
           </View>
