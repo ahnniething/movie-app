@@ -68,6 +68,12 @@ const Overview = styled.Text`
   color: ${(props) => props.theme.textColor};
 `;
 
+const Release = styled.Text`
+  color: ${(props) => props.theme.textColor};
+  font-size: 12px;
+  margin-vertical: 10px;
+`;
+
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
   const [loading, setLoading] = useState(true);
@@ -170,6 +176,9 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           <Poster path={movie.poster_path} />
           <HColumn>
             <Title>{movie.original_title}</Title>
+            <Release>
+              {new Date(movie.release_date).toLocaleDateString("ko")}
+            </Release>
             <Overview>
               {movie.overview !== "" && movie.overview.length > 150
                 ? `${movie.overview.slice(0, 150)}...`
