@@ -57,6 +57,7 @@ const ListContainer = styled.View`
 `;
 const HMovie = styled.View`
   padding: 0px 30px;
+  margin-bottom: 30px;
   flex-direction: row;
 `;
 
@@ -72,6 +73,10 @@ const Release = styled.Text`
   color: ${(props) => props.theme.textColor};
   font-size: 12px;
   margin-vertical: 10px;
+`;
+
+const CommingSoonTitle = styled(ListTitle)`
+  margin-bottom: 30px;
 `;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
@@ -170,14 +175,18 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           ))}
         </TrendingScroll>
       </ListContainer>
-      <ListTitle>Comming Soon</ListTitle>
+      <CommingSoonTitle>Comming Soon</CommingSoonTitle>
       {upcoming.map((movie) => (
         <HMovie key={movie.id}>
           <Poster path={movie.poster_path} />
           <HColumn>
             <Title>{movie.original_title}</Title>
             <Release>
-              {new Date(movie.release_date).toLocaleDateString("ko")}
+              {new Date(movie.release_date).toLocaleDateString("ko", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
             </Release>
             <Overview>
               {movie.overview !== "" && movie.overview.length > 150
