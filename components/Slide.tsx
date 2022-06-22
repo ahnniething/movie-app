@@ -14,7 +14,7 @@ const BgImg = styled.Image``;
 const Title = styled.Text<{ isDark: boolean }>`
   font-size: 16px;
   font-weight: 600;
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.titleColor};
 `;
 
 const Wrapper = styled.View`
@@ -33,8 +33,7 @@ const Column = styled.View`
 
 const OverView = styled.Text<{ isDark: boolean }>`
   margin-top: 10px;
-  color: ${(props) =>
-    props.isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.9)"};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Votes = styled(OverView)`
