@@ -52,7 +52,7 @@ const Votes = styled.Text`
   color: ${(props) => props.theme.textColor};
   font-size: 10px;
 `;
-
+    
 const ListContainer = styled.View`
   margin-bottom: 40px;
 `;
@@ -79,6 +79,7 @@ const Release = styled.Text`
 const CommingSoonTitle = styled(ListTitle)`
   margin-bottom: 30px;
 `;
+
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
