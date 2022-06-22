@@ -1,4 +1,5 @@
 import React from "react";
+import { useColorScheme } from "react-native";
 import styled from "styled-components/native";
 import Poster from "./Poster";
 import Votes from "./Votes";
@@ -9,7 +10,7 @@ const Movie = styled.View`
 `;
 
 const Title = styled.Text`
-  color: white;
+  color: ${(props) => props.theme.titleColor};
   font-weight: 600;
   margin-top: 7px;
   margin-bottom: 5px;
@@ -25,15 +26,18 @@ const VMedia: React.FC<VMediaProps> = ({
   posterPath,
   originalTitle,
   voteAverage,
-}) => (
-  <Movie>
-    <Poster path={posterPath} />
-    <Title>
-      {originalTitle.slice(0, 13)}
-      {originalTitle.length > 13 ? "..." : null}
-    </Title>
-    <Votes votes={voteAverage} />
-  </Movie>
-);
+}) => {
+  const isDark = useColorScheme() === "dark";
+  return (
+    <Movie>
+      <Poster path={posterPath} />
+      <Title>
+        {originalTitle.slice(0, 13)}
+        {originalTitle.length > 13 ? "..." : null}
+      </Title>
+      <Votes votes={voteAverage} />
+    </Movie>
+  );
+};
 
 export default VMedia;

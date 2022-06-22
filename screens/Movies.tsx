@@ -6,6 +6,7 @@ import {
   RefreshControl,
   ScrollView,
   useColorScheme,
+  FlatList,
 } from "react-native";
 // import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
@@ -28,7 +29,7 @@ const Loader = styled.View`
 `;
 
 const ListTitle = styled.Text`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.titleColor};
   font-size: 18px;
   font-weight: 600;
   margin-left: 30px;
@@ -43,6 +44,7 @@ const ListContainer = styled.View`
 `;
 
 const CommingSoonTitle = styled(ListTitle)`
+  color: ${(props) => props.theme.titleColor};
   margin-bottom: 20px;
 `;
 
@@ -132,6 +134,19 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       </Swiper>
       <ListContainer>
         <ListTitle>Trending Movies</ListTitle>
+        <FlatList
+          contentContainerStyle={{ paddingLeft: 30 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={trending}
+          renderItem={({ item }) => (
+            <VMedia
+              posterPath={item.poster_path}
+              originalTitle={item.original_title}
+              voteAverage={item.vote_average}
+            ></VMedia>
+          )}
+        ></FlatList>
         <TrendingScroll
           contentContainerStyle={{ paddingLeft: 30 }}
           horizontal
