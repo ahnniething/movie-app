@@ -1,7 +1,7 @@
 export const lightTheme = {
     mainBgColor :"#F4EBDd",
-    titleColor :"#162C30",
-    textColor :"#2d3436"
+    titleColor :"#fc0522",
+    textColor :"#222729"
 };
 
 export const darkTheme = {

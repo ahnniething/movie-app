@@ -7,6 +7,8 @@ import {
   ScrollView,
   useColorScheme,
   FlatList,
+  View,
+  Text,
 } from "react-native";
 // import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
@@ -32,14 +34,10 @@ const ListTitle = styled.Text`
   color: ${(props) => props.theme.titleColor};
   font-size: 18px;
   font-weight: 600;
-  margin: 20px;
+  margin: 30px 20px;
 `;
 
 const TrendingScroll = styled.FlatList``;
-
-const ListContainer = styled.View`
-  margin-bottom: 40px;
-`;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
@@ -109,7 +107,6 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
         showsButtons={false}
         showsPagination={false}
         containerStyle={{
-          marginBottom: 20,
           width: "100%",
           height: SCREEN_HEIGHT / 4,
         }}
@@ -128,10 +125,11 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
 
       <ListTitle>Trending Movies</ListTitle>
       <TrendingScroll
-        contentContainerStyle={{ paddingLeft: 30 }}
-        horizontal
-        showsHorizontalScrollIndicator={false}
         data={trending}
+        horizontal
+        contentContainerStyle={{ paddingHorizontal: 20 }}
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={{ width: 20 }}></View>}
         renderItem={({ item }) => (
           <VMedia
             posterPath={item.poster_path}
