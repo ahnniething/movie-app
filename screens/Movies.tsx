@@ -95,79 +95,67 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       <ActivityIndicator />
     </Loader>
   ) : (
-    <Container
-      refreshControl={
-        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+    <FlatList
+      ListHeaderComponent={
+        <>
+          <Swiper
+            horizontal
+            loop
+            autoplay={true}
+            autoplayTimeout={3.5}
+            showsButtons={false}
+            showsPagination={false}
+            containerStyle={{
+              width: "100%",
+              height: SCREEN_HEIGHT / 4,
+            }}
+          >
+            {nowPlaying.map((movie) => (
+              <Slide
+                key={movie.id}
+                backdropPath={movie.backdrop_path}
+                posterPath={movie.poster_path}
+                originalTitle={movie.original_title}
+                voteAverage={movie.vote_average}
+                overview={movie.overview}
+              ></Slide>
+            ))}
+          </Swiper>
+          <ListTitle>Trending Movies</ListTitle>
+          <TrendingScroll
+            data={trending}
+            horizontal
+            keyExtractor={(item) => item.id + ""}
+            contentContainerStyle={{ paddingHorizontal: 20 }}
+            showsHorizontalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={{ width: 20 }}></View>}
+            renderItem={({ item }) => (
+              <VMedia
+                posterPath={item.poster_path}
+                originalTitle={item.original_title}
+                voteAverage={item.vote_average}
+              ></VMedia>
+            )}
+          ></TrendingScroll>
+
+          <ListTitle>Coming Soon</ListTitle>
+        </>
       }
-    >
-      <Swiper
-        horizontal
-        loop
-        autoplay={true}
-        autoplayTimeout={3.5}
-        showsButtons={false}
-        showsPagination={false}
-        containerStyle={{
-          width: "100%",
-          height: SCREEN_HEIGHT / 4,
-        }}
-      >
-        {nowPlaying.map((movie) => (
-          <Slide
-            key={movie.id}
-            backdropPath={movie.backdrop_path}
-            posterPath={movie.poster_path}
-            originalTitle={movie.original_title}
-            voteAverage={movie.vote_average}
-            overview={movie.overview}
-          ></Slide>
-        ))}
-      </Swiper>
-
-      <ListTitle>Trending Movies</ListTitle>
-      <TrendingScroll
-        data={trending}
-        horizontal
-        keyExtractor={(item) => item.id + ""}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View style={{ width: 20 }}></View>}
-        renderItem={({ item }) => (
-          <VMedia
-            posterPath={item.poster_path}
-            originalTitle={item.original_title}
-            voteAverage={item.vote_average}
-          ></VMedia>
-        )}
-      ></TrendingScroll>
-
-      <ListTitle>Coming Soon</ListTitle>
-      <UpcomingScroll
-        data={upcoming}
-        keyExtractor={(item) => item.id + ""}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
-        renderItem={({ item }) => (
-          <HMedia
-            posterPath={item.poster_path}
-            originalTitle={item.original_title}
-            overview={item.overview}
-            releaseDate={item.release_date}
-            voteAverage={item.vote_average}
-          ></HMedia>
-        )}
-      />
-      {/* {upcoming.map((movie) => (
+      data={upcoming}
+      keyExtractor={(item) => item.id + ""}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 20 }}
+      ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
+      renderItem={({ item }) => (
         <HMedia
-          key={movie.id}
-          posterPath={movie.poster_path}
-          originalTitle={movie.original_title}
-          overview={movie.overview}
-          releaseDate={movie.release_date}
-        />
-      ))} */}
-    </Container>
+          posterPath={item.poster_path}
+          originalTitle={item.original_title}
+          overview={item.overview}
+          releaseDate={item.release_date}
+          voteAverage={item.vote_average}
+        ></HMedia>
+      )}
+    ></FlatList>
   );
 };
 
