@@ -12,7 +12,6 @@ const Title = styled.Text`
   color: ${(props) => props.theme.titleColor};
   font-weight: 600;
   margin-top: 7px;
-  margin-bottom: 5px;
 `;
 
 interface VMediaProps {

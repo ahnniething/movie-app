@@ -38,6 +38,7 @@ const ListTitle = styled.Text`
 `;
 
 const TrendingScroll = styled.FlatList``;
+const UpcomingScroll = styled.FlatList``;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
@@ -127,6 +128,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       <TrendingScroll
         data={trending}
         horizontal
+        keyExtractor={(item) => item.id + ""}
         contentContainerStyle={{ paddingHorizontal: 20 }}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{ width: 20 }}></View>}
@@ -140,7 +142,23 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       ></TrendingScroll>
 
       <ListTitle>Coming Soon</ListTitle>
-      {upcoming.map((movie) => (
+      <UpcomingScroll
+        data={upcoming}
+        keyExtractor={(item) => item.id + ""}
+        contentContainerStyle={{ paddingHorizontal: 20 }}
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
+        renderItem={({ item }) => (
+          <HMedia
+            posterPath={item.poster_path}
+            originalTitle={item.original_title}
+            overview={item.overview}
+            releaseDate={item.release_date}
+            voteAverage={item.vote_average}
+          ></HMedia>
+        )}
+      />
+      {/* {upcoming.map((movie) => (
         <HMedia
           key={movie.id}
           posterPath={movie.poster_path}
@@ -148,7 +166,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           overview={movie.overview}
           releaseDate={movie.release_date}
         />
-      ))}
+      ))} */}
     </Container>
   );
 };

@@ -8,6 +8,7 @@ interface VotesProps {
 const Text = styled.Text`
   color: ${(props) => props.theme.textColor};
   font-size: 10px;
+  margin-top: 7px;
 `;
 
 const Votes: React.FC<VotesProps> = ({ votes }) => (
