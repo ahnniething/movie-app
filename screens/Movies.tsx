@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ActivityIndicator, Dimensions, FlatList } from "react-native";
 // import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi } from "../api";
 import HMedia from "../components/HMedia";
@@ -37,33 +37,29 @@ const HSeparator = styled.View`
 `;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
+  const queryClient = useQueryClient();
   const {
     isLoading: nowPlayingisLoading,
     data: nowPlayingData,
-    refetch: refetchNowPlaying,
     isRefetching: isRefetchinghNowPlaying,
-  } = useQuery("nowPlaying", moviesApi.nowPlaying);
+  } = useQuery(["movies", "nowPlaying"], moviesApi.nowPlaying);
   const {
     isLoading: upcomingLoading,
     data: upcomingData,
-    refetch: refetchUpcoming,
     isRefetching: isRefetchingUpcoming,
-  } = useQuery("upcoming", moviesApi.upcoming);
+  } = useQuery(["movies", "upcoming"], moviesApi.upcoming);
   const {
     isLoading: trendingLoading,
     data: trendingData,
-    refetch: refetchTrending,
     isRefetching: isRefetchingTrending,
-  } = useQuery("trending", moviesApi.trending);
+  } = useQuery(["movies", "trending"], moviesApi.trending);
 
   const loading = nowPlayingisLoading || upcomingLoading || trendingLoading;
   const refreshing =
     isRefetchinghNowPlaying || isRefetchingUpcoming || isRefetchingTrending;
 
   const onRefresh = async () => {
-    refetchNowPlaying();
-    refetchTrending();
-    refetchUpcoming();
+    queryClient.refetchQueries([]);
   };
 
   const renderVMedia = ({ item }) => (
@@ -85,7 +81,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   );
 
   const movieKeyExtractor = (item) => item.id + "";
-
+  console.log(refreshing);
   return loading ? (
     <Loader>
       <ActivityIndicator />
