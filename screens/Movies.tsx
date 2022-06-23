@@ -39,6 +39,12 @@ const ListTitle = styled.Text`
 
 const TrendingScroll = styled.FlatList``;
 const UpcomingScroll = styled.FlatList``;
+const VSeparator = styled.View`
+  width: 20px;
+`;
+const HSeparator = styled.View`
+  height: 20px;
+`;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const isDark = useColorScheme() === "dark";
@@ -90,6 +96,26 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     setRefreshing(false);
   };
 
+  const renderVMedia = ({ item }) => (
+    <VMedia
+      posterPath={item.poster_path}
+      originalTitle={item.original_title}
+      voteAverage={item.vote_average}
+    ></VMedia>
+  );
+
+  const renderHMedia = ({ item }) => (
+    <HMedia
+      posterPath={item.poster_path}
+      originalTitle={item.original_title}
+      overview={item.overview}
+      releaseDate={item.release_date}
+      voteAverage={item.vote_average}
+    ></HMedia>
+  );
+
+  const movieKeyExtractor = (item) => item.id + "";
+
   return loading ? (
     <Loader>
       <ActivityIndicator />
@@ -125,36 +151,22 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           <TrendingScroll
             data={trending}
             horizontal
-            keyExtractor={(item) => item.id + ""}
+            keyExtractor={movieKeyExtractor}
             contentContainerStyle={{ paddingHorizontal: 20 }}
             showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View style={{ width: 20 }}></View>}
-            renderItem={({ item }) => (
-              <VMedia
-                posterPath={item.poster_path}
-                originalTitle={item.original_title}
-                voteAverage={item.vote_average}
-              ></VMedia>
-            )}
+            ItemSeparatorComponent={VSeparator}
+            renderItem={renderVMedia}
           ></TrendingScroll>
 
           <ListTitle>Coming Soon</ListTitle>
         </>
       }
       data={upcoming}
-      keyExtractor={(item) => item.id + ""}
+      keyExtractor={movieKeyExtractor}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
-      ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
-      renderItem={({ item }) => (
-        <HMedia
-          posterPath={item.poster_path}
-          originalTitle={item.original_title}
-          overview={item.overview}
-          releaseDate={item.release_date}
-          voteAverage={item.vote_average}
-        ></HMedia>
-      )}
+      ItemSeparatorComponent={HSeparator}
+      renderItem={renderHMedia}
     ></FlatList>
   );
 };
