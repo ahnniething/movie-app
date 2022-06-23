@@ -20,6 +20,7 @@ const Tabs = () => {
       backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR
     }}
       screenOptions={{
+        unmountOnBlur: true,
         tabBarStyle: { backgroundColor: isDark ? CHARCOAL_COLOR : IVORY_COLOR },
         tabBarActiveTintColor: isDark ? YELLOW_COLOR : CHARCOAL_COLOR ,
         tabBarInactiveTintColor: isDark ? DEEP_YELLOW_COLOR : GRAY_COLOR,
