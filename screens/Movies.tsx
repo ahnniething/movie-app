@@ -1,22 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  RefreshControl,
-  ScrollView,
-  useColorScheme,
-  FlatList,
-  View,
-  Text,
-} from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, Dimensions, FlatList } from "react-native";
 // import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
 import { useQuery } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi } from "../api";
 import HMedia from "../components/HMedia";
-import Poster from "../components/Poster";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
 
@@ -47,21 +37,34 @@ const HSeparator = styled.View`
 `;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
-  const [refreshing, setRefreshing] = useState(false);
-  const { isLoading: nowPlayingisLoading, data: nowPlayingData } = useQuery(
-    "nowPlaying",
-    moviesApi.nowPlaying
-  );
-  const { isLoading: upcomingLoading, data: upcomingData } = useQuery(
-    "upcoming",
-    moviesApi.upcoming
-  );
-  const { isLoading: trendingLoading, data: trendingData } = useQuery(
-    "trending",
-    moviesApi.trending
-  );
+  const {
+    isLoading: nowPlayingisLoading,
+    data: nowPlayingData,
+    refetch: refetchNowPlaying,
+    isRefetching: isRefetchinghNowPlaying,
+  } = useQuery("nowPlaying", moviesApi.nowPlaying);
+  const {
+    isLoading: upcomingLoading,
+    data: upcomingData,
+    refetch: refetchUpcoming,
+    isRefetching: isRefetchingUpcoming,
+  } = useQuery("upcoming", moviesApi.upcoming);
+  const {
+    isLoading: trendingLoading,
+    data: trendingData,
+    refetch: refetchTrending,
+    isRefetching: isRefetchingTrending,
+  } = useQuery("trending", moviesApi.trending);
 
   const loading = nowPlayingisLoading || upcomingLoading || trendingLoading;
+  const refreshing =
+    isRefetchinghNowPlaying || isRefetchingUpcoming || isRefetchingTrending;
+
+  const onRefresh = async () => {
+    refetchNowPlaying();
+    refetchTrending();
+    refetchUpcoming();
+  };
 
   const renderVMedia = ({ item }) => (
     <VMedia
@@ -89,6 +92,8 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     </Loader>
   ) : (
     <FlatList
+      onRefresh={onRefresh}
+      refreshing={refreshing}
       ListHeaderComponent={
         <>
           <Swiper
