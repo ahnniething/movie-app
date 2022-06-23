@@ -10,8 +10,6 @@ import HMedia from "../components/HMedia";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
 
-const Container = styled.ScrollView``;
-
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const Loader = styled.View`
@@ -27,8 +25,6 @@ const ListTitle = styled.Text`
   margin: 30px 20px;
 `;
 
-const TrendingScroll = styled.FlatList``;
-const UpcomingScroll = styled.FlatList``;
 const VSeparator = styled.View`
   width: 20px;
 `;
@@ -62,31 +58,6 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     queryClient.refetchQueries([]);
   };
 
-  const renderVMedia = ({ item }) => (
-    <VMedia
-      posterPath={item.poster_path}
-      originalTitle={item.original_title}
-      voteAverage={item.vote_average}
-    ></VMedia>
-  );
-
-  const renderHMedia = ({ item }) => (
-    <HMedia
-      posterPath={item.poster_path}
-      originalTitle={item.original_title}
-      overview={item.overview}
-      releaseDate={item.release_date}
-      voteAverage={item.vote_average}
-    ></HMedia>
-  );
-
-  const movieKeyExtractor = (item) => item.id + "";
-  console.log(refreshing);
-  //get key and types of data to create interface Movie in api.ts
-  console.log(Object.keys(nowPlayingData?.results[0]));
-  console.log(
-    Object.values(nowPlayingData?.results[0]).map((values) => typeof values)
-  );
   return loading ? (
     <Loader>
       <ActivityIndicator />
@@ -122,26 +93,39 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           </Swiper>
           <ListTitle>Trending Movies</ListTitle>
           {trendingData ? (
-            <TrendingScroll
-              data={trendingData?.results}
+            <FlatList
+              data={trendingData.results}
               horizontal
-              keyExtractor={movieKeyExtractor}
+              keyExtractor={(item) => item.id + ""}
               contentContainerStyle={{ paddingHorizontal: 20 }}
               showsHorizontalScrollIndicator={false}
               ItemSeparatorComponent={VSeparator}
-              renderItem={renderVMedia}
-            ></TrendingScroll>
+              renderItem={({ item }) => (
+                <VMedia
+                  posterPath={item.poster_path || ""}
+                  originalTitle={item.original_title}
+                  voteAverage={item.vote_average}
+                ></VMedia>
+              )}
+            ></FlatList>
           ) : null}
 
           <ListTitle>Coming Soon</ListTitle>
         </>
       }
       data={upcomingData.results}
-      keyExtractor={movieKeyExtractor}
+      keyExtractor={(item) => item.id + ""}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
       ItemSeparatorComponent={HSeparator}
-      renderItem={renderHMedia}
+      renderItem={({ item }) => (
+        <HMedia
+          posterPath={item.poster_path || ""}
+          originalTitle={item.original_title}
+          overview={item.overview}
+          releaseDate={item.release_date}
+        ></HMedia>
+      )}
     ></FlatList>
   ) : null;
 };
