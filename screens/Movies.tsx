@@ -6,16 +6,11 @@ import { useQuery, useQueryClient } from "react-query";
 import styled from "styled-components/native";
 import { MovieResponse, moviesApi } from "../api";
 import HMedia from "../components/HMedia";
+import Loader from "../components/Loader";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-
-const Loader = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
 
 const ListTitle = styled.Text`
   color: ${(props) => props.theme.titleColor};
@@ -58,9 +53,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   };
 
   return loading ? (
-    <Loader>
-      <ActivityIndicator />
-    </Loader>
+    <Loader />
   ) : upcomingData ? (
     <FlatList
       onRefresh={onRefresh}
