@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React from "react";
 import { ActivityIndicator, Dimensions, FlatList } from "react-native";
-// import Swiper from "react-native-web-swiper";
 import Swiper from "react-native-swiper";
 import { useQuery, useQueryClient } from "react-query";
 import styled from "styled-components/native";
