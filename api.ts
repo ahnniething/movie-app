@@ -43,6 +43,12 @@ export const moviesApi = {
     fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`).then((res) =>
       res.json()
     ),
+  search: ({queryKey}) => {
+   const [_, query] = queryKey;
+   console.log(query);
+    return fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=1&region=KR&query=${query}`).then((res) =>
+      res.json());
+  },
 };
 
 export const tvApi = {
