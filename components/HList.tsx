@@ -4,15 +4,14 @@ import styled from "styled-components/native";
 import VMedia from "./VMedia";
 
 const ListContainer = styled.View`
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 
 const ListTitle = styled.Text`
   color: ${(props) => props.theme.titleColor};
   font-size: 18px;
   font-weight: 600;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin: 0 0 20px 20px;
 `;
 
 export const HListSeparator = styled.View`
@@ -32,7 +31,7 @@ const HList: React.FC<HListProps> = ({ title, data }) => (
       horizontal
       showsHorizontalScrollIndicator={false}
       ItemSeparatorComponent={HListSeparator}
-      contentContainerStyle={{ paddingHorizontal: 30 }}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
       keyExtractor={(item) => item.id + ""}
       renderItem={({ item }) => (
         <VMedia
