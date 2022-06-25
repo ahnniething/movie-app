@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import { useQuery } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi, tvApi } from "../api";
+import HList from "../components/HList";
+import Loader from "../components/Loader";
 
 const Container = styled.ScrollView``;
 
@@ -12,11 +14,12 @@ const SearchBar = styled.TextInput`
      border-radius: 15px;
      width: 90%;
      margin: 10px auto;
+     margin-bottom: 30px;
 `;
 
 const Search = () => {
      const [query, setQuery] = useState("");
-     const { isLoading: moviesLoading, data: movieData, refetch: searchMovies } = useQuery(["searchMovies", query], moviesApi.search, { enabled: false });
+     const { isLoading: moviesLoading, data: moviesData, refetch: searchMovies } = useQuery(["searchMovies", query], moviesApi.search, { enabled: false });
      const { isLoading: tvLoading, data:tvData, refetch: searchTv } = useQuery(["searchTv", query], tvApi.search, { enabled: false });
      const onChangeText = (text: string) => setQuery(text);
      const onSubmit = () => {
@@ -26,7 +29,7 @@ const Search = () => {
           searchMovies();
           searchTv();
      };   
-     console.log(movieData, tvData);
+     console.log(moviesData, tvData);
 
      return (
           <Container>
@@ -38,6 +41,11 @@ const Search = () => {
                     autoCorrect
                     onChangeText={onChangeText}
                     onSubmitEditing={onSubmit}></SearchBar>
+                     {moviesLoading || tvLoading ? <Loader /> : null}
+      {moviesData ? (
+        <HList title="Movie Results" data={moviesData.results} />
+      ) : null}
+      {tvData ? <HList title="TV Results" data={tvData.results} /> : null}
           </Container>
 
      )
