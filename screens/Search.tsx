@@ -14,7 +14,7 @@ const SearchBar = styled.TextInput`
      border-radius: 15px;
      width: 90%;
      margin: 10px auto;
-     margin-bottom: 30px;
+     margin-bottom: 20px;
 `;
 
 const Search = () => {
