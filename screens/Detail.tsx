@@ -3,7 +3,13 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Movie, MovieDetails, moviesApi, TV, tvApi, TVDetails } from "../api";
 import Poster from "../components/Poster";
-import { Dimensions, StyleSheet, Linking } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Linking,
+  TouchableOpacity,
+  Share,
+} from "react-native";
 import { makeImgPath } from "../utils";
 import { CHARCOAL_COLOR } from "../colors";
 import { LinearGradient } from "expo-linear-gradient";
@@ -75,16 +81,42 @@ const Detail: React.FC<DetailScreenProps> = ({
     isMovie ? moviesApi.detail : tvApi.detail
   );
 
+  const ShareButton = () => (
+    <TouchableOpacity onPress={shareMedia}>
+      <Ionicons name="share-outline" color="white" size={24} />
+    </TouchableOpacity>
+  );
+
   useEffect(() => {
     setOptions({
       title: "original_title" in params ? "Movie" : "TV Show",
     });
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      setOptions({
+        headerRight: () => <ShareButton></ShareButton>,
+      });
+    }
+  }, [data]);
+
   const openYTLink = async (videoKey: string) => {
     const baseUrl = `http://m.youtube.com/watch?v=${videoKey}`;
     // await Linking.openURL(baseUrl);
     await WebBrowser.openBrowserAsync(baseUrl);
+  };
+  const shareMedia = async () => {
+    const homepage = isMovie
+      ? `https://www.imdb.com/title/${data.imdb_id}/`
+      : data.homepage;
+    await Share.share({
+      url: homepage,
+      title:
+        "original_title" in params
+          ? params.original_title
+          : params.original_name,
+    });
   };
 
   return (
