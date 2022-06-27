@@ -59,6 +59,7 @@ interface MovieFetchers {
   upcoming: MovieListResponse;
   nowPlaying: MovieListResponse;
   search: MovieListResponse;
+  detail: MovieListResponse;
 }
 
 interface TVFetchers {
@@ -66,6 +67,7 @@ interface TVFetchers {
   airingToday: TVListResponse;
   topRated: TVListResponse;
   search: TVListResponse;
+  detail: TVListResponse;
 }
 
 export const moviesApi: MovieFetchers = {
@@ -90,6 +92,12 @@ export const moviesApi: MovieFetchers = {
       `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=1&region=KR&query=${query}`
     ).then((res) => res.json());
   },
+  detail: ({ queryKey }) => {
+    const [_, id] = queryKey;
+    return fetch(
+      `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images`
+    ).then((res) => res.json());
+  },
 };
 
 export const tvApi: TVFetchers = {
@@ -110,6 +118,12 @@ export const tvApi: TVFetchers = {
     console.log(query);
     return fetch(
       `${BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&page=1&region=KR&query=${query}`
+    ).then((res) => res.json());
+  },
+  detail: ({ queryKey }) => {
+    const [_, id] = queryKey;
+    return fetch(
+      `${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,images`
     ).then((res) => res.json());
   },
 };
