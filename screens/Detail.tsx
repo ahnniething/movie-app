@@ -1,15 +1,15 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
 import styled from "styled-components/native";
 import { Movie, MovieDetails, moviesApi, TV, tvApi, TVDetails } from "../api";
 import Poster from "../components/Poster";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, Linking } from "react-native";
 import { makeImgPath } from "../utils";
 import { CHARCOAL_COLOR } from "../colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { useQuery } from "react-query";
 import Loader from "../components/Loader";
+import { Ionicons } from "@expo/vector-icons";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -29,6 +29,7 @@ const Column = styled.View`
   flex-direction: row;
   width: 80%;
 `;
+
 const Title = styled.Text`
   color: white;
   font-size: 36px;
@@ -36,10 +37,25 @@ const Title = styled.Text`
   margin-left: 15px;
   font-weight: 500;
 `;
+
+const Data = styled.View`
+  padding: 0px 20px;
+`;
+
 const Overview = styled.Text`
   color: ${(props) => props.theme.textColor};
-  margin-top: 20px;
-  padding: 0px 20px;
+  margin: 20px 0px;
+`;
+
+const VideoBtn = styled.TouchableOpacity`
+  flex-direction: row;
+`;
+const BtnText = styled.Text`
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 24px;
+  margin-left: 10px;
 `;
 
 type RootStackPramList = {
@@ -63,6 +79,12 @@ const Detail: React.FC<DetailScreenProps> = ({
       title: "original_title" in params ? "Movie" : "TV Show",
     });
   }, []);
+
+  const openYTLink = async (videoKey: string) => {
+    const baseUrl = `http://m.youtube.com/watch?v=${videoKey}`;
+    await Linking.openURL(baseUrl);
+  };
+
   return (
     <Container>
       <Header>
@@ -83,8 +105,18 @@ const Detail: React.FC<DetailScreenProps> = ({
           </Title>
         </Column>
       </Header>
-      <Overview>{params.overview}</Overview>
-      {isLoading ? <Loader /> : null}
+      <Data>
+        <Overview>{params.overview}</Overview>
+        {isLoading ? <Loader /> : null}
+        {data?.videos?.results?.map((video) =>
+          video.site === "YouTube" ? (
+            <VideoBtn key={video.key} onPress={() => openYTLink(video.key)}>
+              <Ionicons name="logo-youtube" color="white" size={24} />
+              <BtnText>{video.name}</BtnText>
+            </VideoBtn>
+          ) : null
+        )}
+      </Data>
     </Container>
   );
 };
