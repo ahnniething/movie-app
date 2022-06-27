@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ScrollView, FlatList, RefreshControl } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import { useQuery, useQueryClient } from "react-query";
 import { tvApi } from "../api";
 import HList from "../components/HList";
 import Loader from "../components/Loader";
-import VMedia from "../components/VMedia";
 
 const Tv = () => {
   const queryClient = useQueryClient();
@@ -30,7 +29,7 @@ const Tv = () => {
   const onRefresh = async () => {
     setRefreshing(true);
     await queryClient.refetchQueries(["tv"]);
-   setRefreshing(false);
+    setRefreshing(false);
   };
 
   const loading = todayLoading || topLoading || trendingLoading;
