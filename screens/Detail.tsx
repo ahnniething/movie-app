@@ -9,6 +9,7 @@ import {
   Linking,
   TouchableOpacity,
   Share,
+  Platform,
 } from "react-native";
 import { makeImgPath } from "../utils";
 import { CHARCOAL_COLOR } from "../colors";
@@ -107,18 +108,28 @@ const Detail: React.FC<DetailScreenProps> = ({
     await WebBrowser.openBrowserAsync(baseUrl);
   };
   const shareMedia = async () => {
+    const isAndroid = Platform.OS === "android";
     const homepage = isMovie
       ? `https://www.imdb.com/title/${data.imdb_id}/`
       : data.homepage;
-    await Share.share({
-      url: homepage,
-      title:
-        "original_title" in params
-          ? params.original_title
-          : params.original_name,
-    });
+    if (isAndroid) {
+      await Share.share({
+        message: `${params.overview}\nCheck it out: ${homepage}`,
+        title:
+          "original_title" in params
+            ? params.original_title
+            : params.original_name,
+      });
+    } else {
+      await Share.share({
+        url: homepage,
+        title:
+          "original_title" in params
+            ? params.original_title
+            : params.original_name,
+      });
+    }
   };
-
   return (
     <Container>
       <Header>
