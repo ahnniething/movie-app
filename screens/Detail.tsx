@@ -7,6 +7,7 @@ import Poster from "../components/Poster";
 import { Dimensions, StyleSheet } from "react-native";
 import { makeImgPath } from "../utils";
 import { CHARCOAL_COLOR } from "../colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -60,6 +61,10 @@ const Detail: React.FC<DetailScreenProps> = ({
         <Background
           style={StyleSheet.absoluteFill}
           source={{ uri: makeImgPath(params.backdrop_path || "") }}
+        />
+        <LinearGradient
+          colors={["transparent", CHARCOAL_COLOR]}
+          style={StyleSheet.absoluteFill}
         />
         <Column>
           <Poster path={params.poster_path || ""} />
