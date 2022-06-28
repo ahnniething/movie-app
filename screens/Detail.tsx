@@ -59,10 +59,10 @@ const VideoBtn = styled.TouchableOpacity`
   flex-direction: row;
 `;
 const BtnText = styled.Text`
-  color: white;
+  color: ${(props) => props.theme.textColor};
   font-weight: 600;
   margin-bottom: 10px;
-  line-height: 24px;
+  line-height: 20px;
   margin-left: 10px;
 `;
 
@@ -156,7 +156,7 @@ const Detail: React.FC<DetailScreenProps> = ({
         {data?.videos?.results?.map((video) =>
           video.site === "YouTube" ? (
             <VideoBtn key={video.key} onPress={() => openYTLink(video.key)}>
-              <Ionicons name="logo-youtube" color="white" size={24} />
+              <Ionicons name="logo-youtube" color="#FF0000" size={20} />
               <BtnText>{video.name}</BtnText>
             </VideoBtn>
           ) : null
