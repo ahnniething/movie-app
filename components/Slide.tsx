@@ -1,7 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import React from "react";
-import { StyleSheet, useColorScheme } from "react-native";
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  useColorScheme,
+} from "react-native";
 import styled from "styled-components/native";
+import { Movie } from "../api";
 import { makeImgPath } from "../utils";
 import Poster from "./Poster";
 
@@ -46,6 +52,7 @@ interface SlideProps {
   originalTitle: string;
   voteAverage: number;
   overview: string;
+  fullData: Movie;
 }
 
 const Slide: React.FC<SlideProps> = ({
@@ -54,32 +61,46 @@ const Slide: React.FC<SlideProps> = ({
   originalTitle,
   voteAverage,
   overview,
+  fullData,
 }) => {
   const isDark = useColorScheme() === "dark";
 
+  const navigation = useNavigation();
+  const goToDetail = () => {
+    //@ts-ignore
+    navigation.navigate("Stack", {
+      screen: "Detail",
+      params: {
+        ...fullData,
+      },
+    });
+  };
+
   return (
-    <View>
-      <BgImg
-        source={{ uri: makeImgPath(backdropPath) }}
-        style={StyleSheet.absoluteFill}
-      />
-      <BlurView
-        tint={isDark ? "dark" : "light"}
-        intensity={80}
-        style={StyleSheet.absoluteFill}
-      >
-        <Wrapper>
-          <Poster path={posterPath} />
-          <Column>
-            <Title isDark={isDark}>{originalTitle}</Title>
-            {voteAverage > 0 && (
-              <Votes isDark={isDark}>⭐️ {voteAverage}/10</Votes>
-            )}
-            <OverView isDark={isDark}>{overview.slice(0, 90)}...</OverView>
-          </Column>
-        </Wrapper>
-      </BlurView>
-    </View>
+    <TouchableWithoutFeedback onPress={goToDetail}>
+      <View>
+        <BgImg
+          source={{ uri: makeImgPath(backdropPath) }}
+          style={StyleSheet.absoluteFill}
+        />
+        <BlurView
+          tint={isDark ? "dark" : "light"}
+          intensity={80}
+          style={StyleSheet.absoluteFill}
+        >
+          <Wrapper>
+            <Poster path={posterPath} />
+            <Column>
+              <Title isDark={isDark}>{originalTitle}</Title>
+              {voteAverage > 0 && (
+                <Votes isDark={isDark}>⭐️ {voteAverage}/10</Votes>
+              )}
+              <OverView isDark={isDark}>{overview.slice(0, 90)}...</OverView>
+            </Column>
+          </Wrapper>
+        </BlurView>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
