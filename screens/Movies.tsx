@@ -145,18 +145,4 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
 
 export default Movies;
 
-// {
-//   "pageParams": [undefined
-//   ],
-//   "pages": [
-//       {
-//           "dates": [Object
-//           ],
-//           "page": 1,
-//           "results": [Array
-//           ],
-//           "total_pages": 1,
-//           "total_results": 20
-//       }
-//   ]
-// }
+
